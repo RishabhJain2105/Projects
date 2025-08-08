@@ -1,35 +1,30 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Signin from "./Signin.jsx";
-import Signup from "./Signup.jsx";
-import Appbar from "./Appbar.jsx";
-import AddCourse from "./AddCourse.jsx";
-import Courses from "./Courses";
-import Course from "./Course";
-import { useEffect, useState } from 'react';
-import axios from "axios";
-import HomePage from "./HomePage.jsx";
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import Signin from './Signin';
+import Signup from './Signup';
+import Appbar from './Appbar';
+import Courses from './Courses';
+import Course from './Course';
+import AddCourse from './AddCourse';
+import { RecoilRoot } from 'recoil';
 
 function App() {
-
-    return (
-        <div style={{width: "100vw",
-            height: "100vh",
-            backgroundColor: "#eeeeee"}}
-        >
-                <Router>
-                    <Appbar />
-                    <Routes>
-                        <Route path={"/"} element={<HomePage></HomePage>}></Route>
-                        <Route path={"/addcourse"} element={<AddCourse />} />
-                        <Route path={"/course/:courseId"} element={<Course />} />
-                        <Route path={"/courses"} element={<Courses />} />
-                        <Route path={"/signin"} element={<Signin />} />
-                        <Route path={"/signup"} element={<Signup />} />
-                    </Routes>
-                </Router>
-
-        </div>
-    );
+  return (
+    <div style={{ width: "100vw", height: "100vh", backgroundColor: "#eeeeee" }}>
+      <RecoilRoot>
+        <Router>
+          <Appbar />
+          <Routes>
+            <Route path="/" element={<Navigate to="/courses" />} />
+            <Route path="/signin" element={<Signin />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/courses" element={<Courses />} />
+            <Route path="/course/:courseId" element={<Course />} />
+            <Route path="/addcourse" element={<AddCourse />} />
+          </Routes>
+        </Router>
+      </RecoilRoot>
+    </div>
+  );
 }
 
 export default App;

@@ -9,12 +9,18 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.use("/admin", adminRouter)
-app.use("/user", userRouter)
-app.get("/", (req, res) => res.json({msg: "hello world after the class"}));
+app.use("/admin", adminRouter);
+app.use("/user", userRouter);
 
 // Connect to MongoDB
-// DONT MISUSE THIS THANKYOU!!
-mongoose.connect('mongodb+srv://Course-app:Course-app@course-app.64581.mongodb.net/?retryWrites=true&w=majority&appName=Course-app', { useNewUrlParser: true, useUnifiedTopology: true, dbName: "courses" });
+mongoose.connect('mongodb://localhost:27017/courses', { 
+  useNewUrlParser: true, 
+  useUnifiedTopology: true 
+});
 
-app.listen(3000, () => console.log('Server running on port 3000'));
+app.get("/", (req, res) => res.json({message: "Server is running!"}));
+
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
